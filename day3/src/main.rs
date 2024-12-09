@@ -43,7 +43,7 @@ fn try_main() -> anyhow::Result<()> {
 
     // Part two: We only care for what's inside "do()" and "don't()"
     // strings lazily
-    let do_instructions = get_instruction_str(&input)?;
+    let do_instructions = get_instruction_str(input)?;
     let valid_instructions = get_multiply_pairs(&do_instructions)?;
     let sum_of_mul: i32 = valid_instructions
         .iter()

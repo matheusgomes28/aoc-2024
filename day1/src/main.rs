@@ -20,14 +20,14 @@ pub fn read_input(input_text: &str) -> (Vec<i32>, Vec<i32>) {
     (list_one, list_two)
 }
 
-pub fn calculate_difference(list_one: &mut Vec<i32>, list_two: &mut Vec<i32>) -> u32 {
+pub fn calculate_difference(list_one: &mut [i32], list_two: &mut Vec<i32>) -> u32 {
     list_one.sort();
     list_two.sort();
 
     list_one
         .iter()
         .zip(list_two)
-        .map(|(&a, &mut b)| (a - b).abs() as u32)
+        .map(|(&a, &mut b)| (a - b).unsigned_abs())
         .sum()
 }
 
@@ -37,7 +37,7 @@ pub fn elem_freq(list: &[i32]) -> HashMap<i32, u32> {
     for elem in list {
         match frequencies.get_mut(elem) {
             Some(v) => {
-                *v = *v + 1;
+                *v += 1;
             },
             None => {
                 frequencies.insert(*elem, 1);
@@ -45,7 +45,7 @@ pub fn elem_freq(list: &[i32]) -> HashMap<i32, u32> {
         }
     }
 
-    return frequencies
+    frequencies
 }
 
 
@@ -61,7 +61,7 @@ pub fn calculate_similarity(list_one: &[i32], list_two: &[i32]) -> u32 {
             .cloned()
             .unwrap_or(0);
 
-        similarity = similarity + multiplier * (*elem as u32);
+        similarity += multiplier * (*elem as u32);
     }
 
     similarity
